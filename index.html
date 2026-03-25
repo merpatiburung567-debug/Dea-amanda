@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERMINAL ACCESS | SECURED</title>
+    <style>
+        /* Dasar Tampilan Hacker */
+        body { 
+            background-color: #000; 
+            color: #0f0; 
+            font-family: 'Courier New', Courier, monospace; 
+            margin: 0; 
+            overflow: hidden; /* Biar hujan matrix tidak bikin scroll */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Canvas untuk efek hujan Matrix */
+        #matrix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* Konten Utama */
+        .terminal {
+            background: rgba(0, 20, 0, 0.8);
+            border: 1px solid #0f0;
+            padding: 30px;
+            box-shadow: 0 0 20px #0f0;
+            width: 80%;
+            max-width: 600px;
+            z-index: 10;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background-color: #0f0;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        h1 { font-size: 1.5rem; text-transform: uppercase; border-bottom: 1px solid #0f0; padding-bottom: 10px; }
+        p { margin: 15px 0; }
+
+        .btn-hack {
+            display: inline-block;
+            border: 1px solid #0f0;
+            color: #0f0;
+            padding: 10px 20px;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-hack:hover {
+            background: #0f0;
+            color: #000;
+            box-shadow: 0 0 15px #0f0;
+        }
+
+        .status { color: #f00; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <canvas id="matrix"></canvas>
+
+    <div class="terminal">
+        <h1>[ SYSTEM INITIALIZED ]</h1>
+        <p>> USER: HENDRI</p>
+        <p>> STATUS: <span class="status">LAGI STRES</span></p>
+        <p>> MISSION: Membangun ekosistem digital masa depan.</p>
+        <br>
+        <p>Selamat datang di pusat kendali. Saya ahli dalam menembus batas-batas kode dan membangun sistem yang tak tertembus.</p>
+        <br>
+        <a href="https://merpatiburung567-debug.github.io/Kenangan1/" class="btn-hack">HUBUNGI OPERATOR</a>
+        <span class="cursor"></span>
+    </div>
+
+    <script>
+        // SCRIPT UNTUK EFEK HUJAN MATRIX
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^%";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+
+        const drops = [];
+        for (let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#0f0";
+            ctx.font = fontSize + "px arial";
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters.charAt(Math.floor(Math.random() * letters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 33);
+
+        // Resize canvas kalau jendela berubah
+        window.onresize = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+    </script>
+</body>
+</html>
